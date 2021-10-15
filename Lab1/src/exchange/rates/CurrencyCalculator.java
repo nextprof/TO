@@ -7,12 +7,12 @@ import java.util.Scanner;
 public class CurrencyCalculator {
 
     CurrencyRepository currencyRepository = CurrencyRepository.getInstance();
-    Scanner scanner =  new Scanner(System.in);
 
     public CurrencyCalculator() {
     }
 
     public void exchangeUserMoney() {
+        Scanner scanner =  new Scanner(System.in);
         boolean repeat = true;
 
         while(repeat) {

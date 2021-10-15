@@ -46,15 +46,8 @@ public class CurrencyRepository {
     Map<String,Currency> getCurrencies() throws IOException, InterruptedException, ParserConfigurationException, SAXException {
 
         String URL = "https://www.nbp.pl/kursy/xml/lasta.xml";
-
-        HttpRequest httpRequest = HttpRequest.newBuilder()
-                .uri(URI.create(URL))
-                .GET()
-                .build();
-
-        HttpResponse<String> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-
-        String xmlBody = httpResponse.body();
+        XmlProvider dataProvider = new XmlProvider();
+        String xmlBody = dataProvider.getData(URL);
 
         DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         InputSource src = new InputSource();
