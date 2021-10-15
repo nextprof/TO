@@ -1,18 +1,10 @@
 package exchange.rates;
 
 import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.io.StringReader;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +12,6 @@ import java.util.Map;
 public class CurrencyRepository {
 
     private Map<String,Currency> map = Collections.emptyMap();
-    private final HttpClient httpClient = HttpClient.newHttpClient();
     private static CurrencyRepository instance = null;
 
     private CurrencyRepository() {
@@ -46,13 +37,8 @@ public class CurrencyRepository {
     Map<String,Currency> getCurrencies() throws IOException, InterruptedException, ParserConfigurationException, SAXException {
 
         String URL = "https://www.nbp.pl/kursy/xml/lasta.xml";
-        XmlProvider dataProvider = new XmlProvider();
-        String xmlBody = dataProvider.getData(URL);
-
-        DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-        InputSource src = new InputSource();
-        src.setCharacterStream(new StringReader(xmlBody));
-        Document doc = builder.parse(src);
+        XmlResponseProvider xmlResponseProvider = new XmlResponseProvider();
+        Document doc = xmlResponseProvider.getDataDocument(URL);
 
         int length = doc.getElementsByTagName("pozycja").getLength();
 

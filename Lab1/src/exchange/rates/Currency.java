@@ -4,16 +4,16 @@ import java.util.Objects;
 
 public class Currency {
 
-    private String name;
-    private String converter;
-    private String code;
-    private String exchange;
+    private final String name;
+    private final String converter;
+    private final String code;
+    private final String exchange;
 
     public Currency(String name, String converter, String code, String exchange) {
         this.name = name;
         this.converter = converter;
         this.code = code;
-        this.exchange = exchange.replaceAll(",",".");
+        this.exchange = exchange.replaceAll(",", ".");
     }
 
     @Override
@@ -33,31 +33,15 @@ public class Currency {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getConverter() {
         return converter;
-    }
-
-    public void setConverter(String converter) {
-        this.converter = converter;
     }
 
     public String getCode() {
         return code;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public String getExchange() {
         return exchange;
-    }
-
-    public void setExchange(String exchange) {
-        this.exchange = exchange;
     }
 }
