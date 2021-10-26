@@ -6,9 +6,7 @@ import java.util.Scanner;
 
 public class CurrencyCalculator {
 
-    private final CurrencyRepository currencyRepository = CurrencyRepository.getInstance();
-
-    public void exchangeUserMoney() {
+    public static void exchangeUserMoney() {
         Scanner scanner =  new Scanner(System.in);
         boolean repeat = true;
 
@@ -42,18 +40,18 @@ public class CurrencyCalculator {
         }
     }
 
-    private void validateInput(String sourceCode, String destinationCode, BigDecimal amountMoney) throws Exception {
+    private static void validateInput(String sourceCode, String destinationCode, BigDecimal amountMoney) throws Exception {
         if(amountMoney.doubleValue() <=0 )
             throw new Exception("Invalid amount money to exchange");
-        if(currencyRepository.isInvalidCurrencyCode(sourceCode) ||
-                currencyRepository.isInvalidCurrencyCode(destinationCode))
+        if(CurrencyRepository.getInstance().isInvalidCurrencyCode(sourceCode) ||
+                CurrencyRepository.getInstance().isInvalidCurrencyCode(destinationCode))
             throw new Exception("Invalid currency code provided");
     }
 
-    public BigDecimal calculateExchange(String source,String destination, BigDecimal amountMoney) {
+    public static BigDecimal calculateExchange(String source,String destination, BigDecimal amountMoney) {
 
-        Currency sourceCurrency = currencyRepository.getCurrencyByCode(source);
-        Currency destinationCurrency =  currencyRepository.getCurrencyByCode(destination);
+        Currency sourceCurrency = CurrencyRepository.getInstance().getCurrencyByCode(source);
+        Currency destinationCurrency =  CurrencyRepository.getInstance().getCurrencyByCode(destination);
 
         BigDecimal converter = BigDecimal.valueOf(destinationCurrency.getConverter() / sourceCurrency.getConverter());
         return amountMoney.multiply(converter).multiply(sourceCurrency.getExchange()).divide(destinationCurrency.getExchange(),
