@@ -1,19 +1,20 @@
 package exchange.rates;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Currency {
 
     private final String name;
-    private final String converter;
+    private final double converter;
     private final String code;
-    private final String exchange;
+    private final BigDecimal exchange;
 
     public Currency(String name, String converter, String code, String exchange) {
-        this.name = name;
-        this.converter = converter;
-        this.code = code;
-        this.exchange = exchange.replaceAll(",", ".");
+            this.name = name;
+            this.converter = Double.parseDouble(converter);
+            this.code = code;
+            this.exchange = new BigDecimal(exchange.replaceAll(",", "."));
     }
 
     @Override
@@ -33,7 +34,7 @@ public class Currency {
         return name;
     }
 
-    public String getConverter() {
+    public double getConverter() {
         return converter;
     }
 
@@ -41,7 +42,7 @@ public class Currency {
         return code;
     }
 
-    public String getExchange() {
+    public BigDecimal getExchange() {
         return exchange;
     }
 }

@@ -29,6 +29,7 @@ public class CurrencyCalculator {
                 validateInput(sourceCode,destinationCode,amountMoney);
 
                 BigDecimal exchangedMoney = calculateExchange(sourceCode,destinationCode,amountMoney);
+
                 System.out.format("%.2f %s = %.2f %s",amountMoney,sourceCode,exchangedMoney,destinationCode);
 
                 repeat = false;
@@ -52,14 +53,11 @@ public class CurrencyCalculator {
     public BigDecimal calculateExchange(String source,String destination, BigDecimal amountMoney) {
 
         Currency sourceCurrency = currencyRepository.getCurrencyByCode(source);
-        double sourceConverter = Double.parseDouble(sourceCurrency.getConverter());
-        BigDecimal sourceExchange = new BigDecimal(sourceCurrency.getExchange());
-
         Currency destinationCurrency =  currencyRepository.getCurrencyByCode(destination);
-        double destinationConverter = Double.parseDouble(destinationCurrency.getConverter());
-        BigDecimal destinationExchange = new BigDecimal(destinationCurrency.getExchange());
 
-        BigDecimal converter = new BigDecimal(destinationConverter/sourceConverter);
-        return amountMoney.multiply(converter).multiply(sourceExchange).divide(destinationExchange,2,RoundingMode.DOWN);
+        BigDecimal converter = BigDecimal.valueOf(destinationCurrency.getConverter() / sourceCurrency.getConverter());
+        return amountMoney.multiply(converter).multiply(sourceCurrency.getExchange()).divide(destinationCurrency.getExchange(),
+                2
+                ,RoundingMode.DOWN);
     }
 }
