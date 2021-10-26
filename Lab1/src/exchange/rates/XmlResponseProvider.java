@@ -16,16 +16,13 @@ import java.net.http.HttpResponse;
 
 public class XmlResponseProvider {
 
-    private final HttpClient httpClient = HttpClient.newHttpClient();
-
-
-    public Document getDataDocument(String URL) throws IOException, InterruptedException, ParserConfigurationException, SAXException {
+    public static Document getDataDocument(String URL) throws IOException, InterruptedException, ParserConfigurationException, SAXException {
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .uri(URI.create(URL))
                 .GET()
                 .build();
 
-        HttpResponse<String> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> httpResponse = HttpClient.newHttpClient().send(httpRequest, HttpResponse.BodyHandlers.ofString());
 
         String xmlBody =  httpResponse.body();
 

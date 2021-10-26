@@ -37,8 +37,7 @@ public class CurrencyRepository {
     Map<String,Currency> getCurrencies() throws IOException, InterruptedException, ParserConfigurationException, SAXException {
 
         String URL = "https://www.nbp.pl/kursy/xml/lasta.xml";
-        XmlResponseProvider xmlResponseProvider = new XmlResponseProvider();
-        Document doc = xmlResponseProvider.getDataDocument(URL);
+        Document doc = XmlResponseProvider.getDataDocument(URL);
 
         int length = doc.getElementsByTagName("pozycja").getLength();
 

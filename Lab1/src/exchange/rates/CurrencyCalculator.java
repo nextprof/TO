@@ -6,10 +6,7 @@ import java.util.Scanner;
 
 public class CurrencyCalculator {
 
-    CurrencyRepository currencyRepository = CurrencyRepository.getInstance();
-
-    public CurrencyCalculator() {
-    }
+    private final CurrencyRepository currencyRepository = CurrencyRepository.getInstance();
 
     public void exchangeUserMoney() {
         Scanner scanner =  new Scanner(System.in);
