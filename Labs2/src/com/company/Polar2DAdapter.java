@@ -4,6 +4,10 @@ public class Polar2DAdapter implements IVector,IPolar2D{
 
     private Vector2D srcVector;
 
+    public Polar2DAdapter(Vector2D srcVector) {
+        this.srcVector = srcVector;
+    }
+
     @Override
     public double getAngle() {
        double[] components = srcVector.getComponents();

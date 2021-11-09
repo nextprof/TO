@@ -10,7 +10,8 @@ public class Vector3DInheritance extends Vector2D{
 
     @Override
     public double abs() {
-        return super.abs();
+        double[] vectorCords = getComponents();
+        return Math.sqrt(Math.pow(vectorCords[0], 2) + Math.pow(vectorCords[1], 2) + Math.pow(z, 2));
     }
 
     @Override
